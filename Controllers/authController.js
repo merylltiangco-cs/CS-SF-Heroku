@@ -1,11 +1,11 @@
 const request = require('request-promise');
-const baseUrl = "https://contentserv01-tech-prtnr-eu03-dw.demandware.net";
-const grantService = "/dw/oauth2/access_token?client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&grant_type=urn:demandware:params:oauth:grant-type:client-id:dwsid:dwsecuretoken";
-const clientSecret = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-const password = "CSsandbox#2019";
-const userName = "admin";
-const restEndpoint = "/s/-/dw/data";
-const apiVersion = "/v19_3";
+const baseUrl = process.env.BASE_URL;
+const grantService = process.env.GRANT_SERVICE;
+const clientSecret = process.env.CLIENT_SECRET;
+const password = process.env.PASSWORD;
+const userName = process.env.USERNAME;
+const restEndpoint = process.env.REST_ENDPOINT;
+const apiVersion = process.env.API_VERSION;
 const requestUrl = baseUrl + restEndpoint + apiVersion;
 
 function auth(req, res) {
