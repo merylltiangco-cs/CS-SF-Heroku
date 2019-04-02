@@ -5,7 +5,7 @@ const clientSecret = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const password = "CSsandbox#2019";
 const userName = "admin";
 const restEndpoint = "/s/-/dw/data";
-const apiVersion = "/v17_4";
+const apiVersion = "/v19_3";
 const requestUrl = baseUrl + restEndpoint + apiVersion;
 
 function auth(req, res) {
