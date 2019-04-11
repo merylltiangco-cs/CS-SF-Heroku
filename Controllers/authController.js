@@ -19,6 +19,8 @@ function auth(req, res) {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
 
+  //get access token
+
   request.post(loginURL, { headers: headers })
     .then((tokenResponse) => {
       console.log('OK');
@@ -34,12 +36,14 @@ function auth(req, res) {
         },
         'select': '(**)'
       };
-
+      //Get product list
       request.post(requestUrl + '/product_search ', { headers: requestHeader, json: data })
         .then((response) => {
           // res.status(200).send(response.hits);
           const productID = response.hits[0].id;
           console.log('PRODUCTID:' + productID);
+
+          //get product details
           request.get(requestUrl + `/products/${productID}?expand=all&site_id=SiteGenesis`, { headers: requestHeader })
             .then((productResponse) => {
               console
