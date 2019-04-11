@@ -25,7 +25,7 @@ function auth(req, res) {
         'Authorization': 'Bearer ' + accesToken.access_token
       };
       //  /products/sony-kdl-26n4000?expand=all&site_id=SiteGenesis
-      request.get(requestUrl + '/catalogs/Food', { headers: requestHeader })
+      request.get(requestUrl + '/catalogs', { headers: requestHeader })
         .then((response) => {
           res.status(200).end(response);
 
