@@ -24,8 +24,8 @@ function auth(req, res) {
       const requestHeader = {
         'Authorization': 'Bearer ' + accesToken.access_token
       };
-
-      request.get(requestUrl + '/products/sony-kdl-26n4000?expand=all&site_id=SiteGenesis', { headers: requestHeader })
+      //  /products/sony-kdl-26n4000?expand=all&site_id=SiteGenesis
+      request.get(requestUrl + '/catalogs', { headers: requestHeader })
         .then((response) => {
           res.status(200).end(response);
 
