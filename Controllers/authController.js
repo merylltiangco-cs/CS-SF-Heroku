@@ -4,9 +4,9 @@ const grantService = process.env.GRANT_SERVICE;
 const clientSecret = process.env.CLIENT_SECRET;
 const password = process.env.PASSWORD;
 const userName = process.env.USERNAME;
-const restEndpoint = process.env.REST_ENDPOINT;
+const dataEndpoint = process.env.DATA_ENDPOINT;
 const apiVersion = process.env.API_VERSION;
-const requestUrl = baseUrl + restEndpoint + apiVersion;
+const requestUrl = baseUrl + dataEndpoint + apiVersion;
 
 function auth(req, res) {
   const loginURL = baseUrl + grantService;
