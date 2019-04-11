@@ -22,13 +22,14 @@ function auth(req, res) {
     .then((tokenResponse) => {
       const accesToken = JSON.parse(tokenResponse);
       const requestHeader = {
-        'Authorization': 'Bearer ' + accesToken.access_token
+        'Authorization': 'Bearer ' + accesToken.access_token,
+        'Content-Type': 'application/json'
       };
       const data = {
-        "query": {
-          "match_all_query": {}
+        'query': {
+          'match_all_query': {}
         },
-        "select": "(**)"
+        'select': '(**)'
       };
       //  /products/sony-kdl-26n4000?expand=all&site_id=SiteGenesis
       request.post(requestUrl + '/product_search', { headers: requestHeader, json: data })
