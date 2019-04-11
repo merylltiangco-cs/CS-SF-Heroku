@@ -31,7 +31,7 @@ function auth(req, res) {
         "select": "(**)"
       };
       //  /products/sony-kdl-26n4000?expand=all&site_id=SiteGenesis
-      request.get(requestUrl + '/product_search', { headers: requestHeader, json: data })
+      request.post(requestUrl + '/product_search', { headers: requestHeader, json: data })
         .then((response) => {
           res.status(200).end(response);
 
