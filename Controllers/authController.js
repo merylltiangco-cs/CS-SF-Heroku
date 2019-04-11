@@ -38,7 +38,7 @@ function auth(req, res) {
 
         }).catch((error) => {
 
-          res.status(error.statusCode).send(error.error.error_description);
+          res.status(error.statusCode).send(error);
 
         });
     }).catch((error) => {
