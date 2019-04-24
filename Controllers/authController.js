@@ -11,14 +11,13 @@ const requestUrl = baseUrl + dataEndpoint + apiVersion;
 
 function auth(req, res) {
   const loginURL = baseUrl + grantService;
-  const credString = new Buffer(userName + ':' + password + ':' + clientSecret);
+  const credString = new Buffer.from(userName + ':' + password + ':' + clientSecret);
   const encoded = credString.toString('base64');
 
   const headers = {
     'Authorization': 'Basic ' + encoded,
     'Content-Type': 'application/x-www-form-urlencoded'
-  }
-
+  };
   //get access token
 
   request.post(loginURL, { headers: headers })
@@ -39,29 +38,25 @@ function auth(req, res) {
       //Get product list
       request.post(requestUrl + '/product_search ', { headers: requestHeader, json: data })
         .then((response) => {
-          // res.status(200).send(response.hits);
+          //res.status(200).send(response.hits);
           const productID = response.hits[0].id;
           console.log('PRODUCTID:' + productID);
 
           //get product details
           request.get(requestUrl + `/products/${productID}?expand=all&site_id=SiteGenesis`, { headers: requestHeader })
             .then((productResponse) => {
-              console
               res.status(200).send(productResponse);
-
             }).catch((error) => {
-
-              res.status(error.statusCode).send(error.error.error_description);
-
+              console.log(error.error)
+              res.status(error.statusCode).send(error.error);
             });
-
         }).catch((error) => {
-
-          res.status(error.statusCode).send(error.error.error_description);
-
+          console.log(error.error)
+          res.status(error.statusCode).send(error.error);
         });
     }).catch((error) => {
-      res.status(error.statusCode).send(error.error.error_description);
+      console.log(error.error)
+      res.status(error.statusCode).send(error.error);
     });
 
 }
