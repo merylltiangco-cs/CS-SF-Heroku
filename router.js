@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router();
 const productController = require('./controllers/productController');
-const authController = require('./controllers/authController');
 const { catchErrors } = require('./helpers/errorHandlers');
 
 router.get('/', catchErrors(productController.getProducts));
