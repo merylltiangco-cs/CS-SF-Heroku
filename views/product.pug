@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  .inner
+    img(src=product.image? product.image['abs_url'] : "/images/dogbed.jpg", alt=product.image? product.image['alt']: "No Image")
+    p= product.name['default']
+    p $#{product.price || 99.99}
