@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const { getProducts, getProduct } = require('./controllers/productController');
+const { getProducts, getProduct } = require('./Controllers/productController');
 const { catchErrors } = require('./helpers/errorHandlers');
 
 router.get('/', catchErrors(getProducts));
