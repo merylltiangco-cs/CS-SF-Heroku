@@ -1,15 +1,127 @@
 extends layout
 
 block content
-  .content__header
-    h2 Products
-  .inner
-    .products
-      each product in products
-        .product
-          .product__hero
-            img(src=product.image? product.image['abs_url'] : "/images/dogbed.jpg", alt=product.image? product.image['alt']: "No Image")
-            h4.title
-              a(href=`/product/${product.id}`) #{product.name['default']}
-          .product__details
-            p $#{product.price || 99.99}
+    // Title Page
+    section.bg-title-page.p-t-50.p-b-40.flex-col-c-m(style='background-image: url(images/heading-pages-02.jpg);')
+      h2.l-text2.t-center
+        | Women
+      p.m-text13.t-center
+        | New Arrivals Women Collection 2018
+    // Content page
+    section.bgwhite.p-t-55.p-b-65
+      .container
+        .row
+          .col-sm-6.col-md-4.col-lg-3.p-b-50
+            .leftbar.p-r-20.p-r-0-sm
+              // 
+              h4.m-text14.p-b-7
+                | Categories
+              ul.p-b-54
+                li.p-t-4
+                  a.s-text13.active1(href='#')
+                    | All
+                li.p-t-4
+                  a.s-text13(href='#')
+                    | Women
+                li.p-t-4
+                  a.s-text13(href='#')
+                    | Men
+                li.p-t-4
+                  a.s-text13(href='#')
+                    | Kids
+                li.p-t-4
+                  a.s-text13(href='#')
+                    | Accesories
+              // 
+              h4.m-text14.p-b-32
+                | Filters
+              .filter-price.p-t-22.p-b-50.bo3
+                .m-text15.p-b-17
+                  | Price
+                .wra-filter-bar
+                  #filter-bar
+                .flex-sb-m.flex-w.p-t-16
+                  .w-size11
+                    // Button
+                    button.flex-c-m.size4.bg7.bo-rad-15.hov1.s-text14.trans-0-4
+                      | Filter
+                  .s-text3.p-t-10.p-b-10
+                    | Range: $
+                    span#value-lower 610
+                    |  - $
+                    span#value-upper 980
+              .filter-color.p-t-22.p-b-50.bo3
+                .m-text15.p-b-12
+                  | Color
+                ul.flex-w
+                  li.m-r-10
+                    input#color-filter1.checkbox-color-filter(type='checkbox', name='color-filter1')
+                    label.color-filter.color-filter1(for='color-filter1')
+                  li.m-r-10
+                    input#color-filter2.checkbox-color-filter(type='checkbox', name='color-filter2')
+                    label.color-filter.color-filter2(for='color-filter2')
+                  li.m-r-10
+                    input#color-filter3.checkbox-color-filter(type='checkbox', name='color-filter3')
+                    label.color-filter.color-filter3(for='color-filter3')
+                  li.m-r-10
+                    input#color-filter4.checkbox-color-filter(type='checkbox', name='color-filter4')
+                    label.color-filter.color-filter4(for='color-filter4')
+                  li.m-r-10
+                    input#color-filter5.checkbox-color-filter(type='checkbox', name='color-filter5')
+                    label.color-filter.color-filter5(for='color-filter5')
+                  li.m-r-10
+                    input#color-filter6.checkbox-color-filter(type='checkbox', name='color-filter6')
+                    label.color-filter.color-filter6(for='color-filter6')
+                  li.m-r-10
+                    input#color-filter7.checkbox-color-filter(type='checkbox', name='color-filter7')
+                    label.color-filter.color-filter7(for='color-filter7')
+              .search-product.pos-relative.bo4.of-hidden
+                input.s-text7.size6.p-l-23.p-r-50(type='text', name='search-product', placeholder='Search Products...')
+                button.flex-c-m.size5.ab-r-m.color2.color0-hov.trans-0-4
+                  i.fs-12.fa.fa-search(aria-hidden='true')
+          .col-sm-6.col-md-8.col-lg-9.p-b-50.product-grid
+            // 
+            .flex-sb-m.flex-w.p-b-35
+              .flex-w
+                .rs2-select2.bo4.of-hidden.w-size12.m-t-5.m-b-5.m-r-10
+                  select.selection-2(name='sorting')
+                    option Default Sorting
+                    option Popularity
+                    option Price: low to high
+                    option Price: high to low
+                .rs2-select2.bo4.of-hidden.w-size12.m-t-5.m-b-5.m-r-10
+                  select.selection-2(name='sorting')
+                    option Price
+                    option $0.00 - $50.00
+                    option $50.00 - $100.00
+                    option $100.00 - $150.00
+                    option $150.00 - $200.00
+                    option $200.00+
+              span.s-text8.p-t-5.p-b-5
+                | Showing 1–12 of 16 results
+            // Product
+            .row
+            each product in products
+              .col-sm-12.col-md-6.col-lg-4.p-b-50.product-card
+                // Block2
+                .block2
+                  .block2-img.wrap-pic-w.of-hidden.pos-relative.block2-labelnew
+                    img(src=product.image? product.image['abs_url'] : "/images/item-02.jpg", alt=product.image? product.image['alt']:'IMG-PRODUCT')
+                    .block2-overlay.trans-0-4
+                      a.block2-btn-addwishlist.hov-pointer.trans-0-4(href='#')
+                        i.icon-wishlist.icon_heart_alt(aria-hidden='true')
+                        i.icon-wishlist.icon_heart.dis-none(aria-hidden='true')
+                      .block2-btn-addcart.w-size1.trans-0-4
+                        // Button
+                        button.flex-c-m.size1.bg4.bo-rad-23.hov1.s-text1.trans-0-4
+                          | Add to Cart
+                  .block2-txt.p-t-20
+                    a.block2-name.dis-block.s-text3.p-b-5(href=`/product/${product.id}`)
+                      | #{product.name['default']}
+                    span.block2-price.m-text6.p-r-5
+                      | $#{product.price || 99.99}
+
+            // Pagination
+            .pagination.flex-m.flex-w.p-t-26
+              a.item-pagination.flex-c-m.trans-0-4.active-pagination(href='#') 1
+              a.item-pagination.flex-c-m.trans-0-4(href='#') 2

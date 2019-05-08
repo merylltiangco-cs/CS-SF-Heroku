@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .content__header
+    h2 Products
+  .inner
+    .products
+      each product in products
+        .product
+          .product__hero
+            img(src=product.image? product.image['abs_url'] : "/images/dogbed.jpg", alt=product.image? product.image['alt']: "No Image")
+            h4.title
+              a(href=`/product/${product.id}`) #{product.name['default']}
+          .product__details
+            p $#{product.price || 99.99}
