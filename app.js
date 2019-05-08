@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const routes = require('./router');
 const errorHandlers = require('./helpers/errorHandlers');
-const { getToken } = require('./service/ocapiService');
+const { getToken, getJWToken } = require('./service/ocapiService');
 
 const app = express();
 

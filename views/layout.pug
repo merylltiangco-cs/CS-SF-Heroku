@@ -1,11 +1,11 @@
 doctype html
 html(lang='en')
   head
-    title Home
+    title #{title || 'YourPetCastle'}
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     // ===============================================================================================
-    link(rel='icon', type='image/png', href='images/icons/favicon.png')
+    link(rel='icon', type='image/png', href='images/icons/Favicon_32x32.png')
     // ===============================================================================================
     link(rel='stylesheet', type='text/css', href='vendor/bootstrap/css/bootstrap.min.css')
     // ===============================================================================================
@@ -50,15 +50,15 @@ html(lang='en')
             | Free shipping for standard order over $100
           .topbar-child2
             span.topbar-email
-              | fashe@example.com
+              | hello@yourpetcastle.com
             .topbar-language.rs1-select2
               select.selection-1(name='time')
                 option USD
                 option EUR
         .wrap_header
           // Logo
-          a.logo(href='index.html')
-            img(src='/images/icons/logo.png', alt='IMG-LOGO')
+          a.logo(href='/')
+            img(src='/images/icons/ypc_logo.png', alt='IMG-LOGO')
           // Menu
           .wrap_menu
             nav.menu
@@ -118,7 +118,7 @@ html(lang='en')
                 .header-cart-buttons
                   .header-cart-wrapbtn
                     // Button
-                    a.flex-c-m.size1.bg1.bo-rad-20.hov1.s-text1.trans-0-4(href='cart.html')
+                    a.flex-c-m.size1.bg1.bo-rad-20.hov1.s-text1.trans-0-4(href='/')
                       | View Cart
                   .header-cart-wrapbtn
                     // Button
@@ -127,8 +127,8 @@ html(lang='en')
       // Header Mobile
       .wrap_header_mobile
         // Logo moblie
-        a.logo-mobile(href='index.html')
-          img(src='images/icons/logo.png', alt='IMG-LOGO')
+        a.logo-mobile(href='/')
+          img(src='images/icons/ypc_logo.png', alt='IMG-LOGO')
         // Button show menu
         .btn-show-menu
           // Header Icon mobile
@@ -171,7 +171,7 @@ html(lang='en')
                 .header-cart-buttons
                   .header-cart-wrapbtn
                     // Button
-                    a.flex-c-m.size1.bg1.bo-rad-20.hov1.s-text1.trans-0-4(href='cart.html')
+                    a.flex-c-m.size1.bg1.bo-rad-20.hov1.s-text1.trans-0-4(href='/')
                       | View Cart
                   .header-cart-wrapbtn
                     // Button
@@ -203,15 +203,7 @@ html(lang='en')
                 a.topbar-social-item.fa.fa-snapchat-ghost(href='#')
                 a.topbar-social-item.fa.fa-youtube-play(href='#')
             li.item-menu-mobile
-              a(href='index.html') Home
-              ul.sub-menu
-                li
-                  a(href='index.html') Homepage V1
-                li
-                  a(href='home-02.html') Homepage V2
-                li
-                  a(href='home-03.html') Homepage V3
-              i.arrow-main-menu.fa.fa-angle-right(aria-hidden='true')
+              a(href='/') Home
             li.item-menu-mobile
               a(href='/products') Shop
             li.item-menu-mobile

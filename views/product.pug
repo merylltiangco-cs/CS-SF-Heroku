@@ -6,13 +6,10 @@ block content
       a.s-text16(href='/')
         | Home
         i.fa.fa-angle-right.m-l-8.m-r-9(aria-hidden='true')
-      a.s-text16(href='/products')
-        | Women
+      a.s-text16(href='/')
+        | #{product.owning_catalog_name['default']}
         i.fa.fa-angle-right.m-l-8.m-r-9(aria-hidden='true')
-      a.s-text16(href='#')
-        | T-Shirt
-        i.fa.fa-angle-right.m-l-8.m-r-9(aria-hidden='true')
-      span.s-text17
+      a.s-text16(href='/')
         | #{product.name['default']}
     // Product Detail
     .container.bgwhite.p-t-35.p-b-80
@@ -29,7 +26,7 @@ block content
           h4.product-detail-name.m-text16.p-b-13
             | #{product.name['default']}
           span.m-text17
-            | $#{product.price || 99.99}
+            | $#{product.price? product.price : 'No price'}
           p.s-text8.p-t-10
             | #{product.short_description['default'].markup}
           // 
@@ -67,7 +64,7 @@ block content
                   button.flex-c-m.sizefull.bg1.bo-rad-23.hov1.s-text1.trans-0-4
                     | Add to Cart
           .p-b-45
-            span.s-text8.m-r-35 SKU: MUG-01
+            span.s-text8.m-r-35 BRAND: #{product.brand? product.brand : 'Generic'}
             span.s-text8 Categories: Mug, Design
           // 
           .wrap-dropdown-content.bo6.p-t-15.p-b-14.active-dropdown-content

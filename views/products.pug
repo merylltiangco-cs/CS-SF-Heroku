@@ -119,7 +119,7 @@ block content
                     a.block2-name.dis-block.s-text3.p-b-5(href=`/product/${product.id}`)
                       | #{product.name['default']}
                     span.block2-price.m-text6.p-r-5
-                      | $#{product.price || 99.99}
+                      | $#{product.price || 'No price'}
 
             // Pagination
             .pagination.flex-m.flex-w.p-t-26

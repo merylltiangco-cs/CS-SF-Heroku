@@ -5,46 +5,55 @@ const shopEndpoint = process.env.SHOP_ENDPOINT;
 const apiVersion = process.env.API_VERSION;
 const siteId = process.env.SITE_ID
 const requestUrl = baseUrl + dataEndpoint + apiVersion;
+const shopRequestUrl = baseUrl + '/s/' + siteId + shopEndpoint + apiVersion;
 const { catchErrors } = require('../helpers/errorHandlers');
 
 exports.getProducts = async (req, res) => {
-    const requestHeader = {
+    const headers = {
         'Authorization': 'Bearer ' + req.session.accessToken,
         'Content-Type': 'application/json' 
     };
 
-    const query = {
+    const json = {
         'query': {
             'text_query': { 
                 'fields': ['catalog_id'], 
                 'search_phrase': 'contentserv-default-catalog' 
                 }
         },
+        'expand': ['prices', 'images'],
         'select': '(**)'
     };
 
-    request.post(requestUrl + `/product_search?expand=images,prices&site_id=${siteId}`, { headers: requestHeader, json: query })
+    //request.post(requestUrl + `/product_search?site_id=${siteId}`, { headers: requestHeader, json: query })
+    //ORTHO-84672594563225
+    //ORTHO-84672594563229
+    //request.get(shopRequestUrl + `/product_search?client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`, { headers, json })
+    request.get(shopRequestUrl + `/product_search?refine=cgid=contentserv-default-category&expand=images,prices,variations&client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`, { headers })
         .then((productsResponse) => {
             const products = productsResponse.hits;
             console.log('PRODUCT LIST');
-            //res.json(products);
-            res.render('products', { products });
+            res.json(productsResponse);
+            //res.render('products', { products });
     });
+
 };
 
-exports.getProduct = async (req, res) => {
+exports.getProduct = async (req, res, next) => {
     const productId = req.params.productId;
-    if (!isNaN(productId)) {
+    console.log(productId);
+    if ( typeof productId !== 'undefined' && productId ){
         const requestHeader = {
             'Authorization': 'Bearer ' + req.session.accessToken,
             'Content-Type': 'application/json' 
         };
-        console.log(`GET PRODUCT: ${productId}`)
-        request.get(requestUrl + `/products/${productId}?expand=all&site_id=${siteId}`, { headers: requestHeader })
+        console.log(`GET PRODUCT: ${productId}`);
+        request.get(shopRequestUrl + `/products/${productId}/prices?client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`, { headers: requestHeader })
             .then((productResponse) => {
                 const product = JSON.parse(productResponse);
-                //res.json(product);
-                res.render('product', { product });
+                console.log(product);
+                res.json(product);
+                //res.render('product', { product, title: product.page_title['default'] });
         });
     }
 };
