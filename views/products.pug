@@ -106,7 +106,7 @@ block content
                 // Block2
                 .block2
                   .block2-img.wrap-pic-w.of-hidden.pos-relative.block2-labelnew
-                    img(src=product.image? product.image['abs_url'] : "/images/item-02.jpg", alt=product.image? product.image['alt']:'IMG-PRODUCT')
+                    img(src=product.image? product.image['link'] : "/images/item-02.jpg", alt=product.image? product.image['alt']:'IMG-PRODUCT')
                     .block2-overlay.trans-0-4
                       a.block2-btn-addwishlist.hov-pointer.trans-0-4(href='#')
                         i.icon-wishlist.icon_heart_alt(aria-hidden='true')
@@ -116,10 +116,10 @@ block content
                         button.flex-c-m.size1.bg4.bo-rad-23.hov1.s-text1.trans-0-4
                           | Add to Cart
                   .block2-txt.p-t-20
-                    a.block2-name.dis-block.s-text3.p-b-5(href=`/product/${product.id}`)
-                      | #{product.name['default']}
+                    a.block2-name.dis-block.s-text3.p-b-5(href=`/product/${product.product_id}`)
+                      | #{product.product_name}
                     span.block2-price.m-text6.p-r-5
-                      | $#{product.price || 'No price'}
+                      | $#{product.prices? product.prices['usd-list-prices'] : '0'}
 
             // Pagination
             .pagination.flex-m.flex-w.p-t-26

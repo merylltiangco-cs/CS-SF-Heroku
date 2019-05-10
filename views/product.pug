@@ -7,10 +7,7 @@ block content
         | Home
         i.fa.fa-angle-right.m-l-8.m-r-9(aria-hidden='true')
       a.s-text16(href='/')
-        | #{product.owning_catalog_name['default']}
-        i.fa.fa-angle-right.m-l-8.m-r-9(aria-hidden='true')
-      a.s-text16(href='/')
-        | #{product.name['default']}
+        | #{product.name}
     // Product Detail
     .container.bgwhite.p-t-35.p-b-80
       .flex-w.flex-sb
@@ -18,17 +15,17 @@ block content
           .wrap-slick3.flex-sb.flex-w
             .wrap-slick3-dots
             .slick3
-            each productImage in product.image_groups[0].images
-              .item-slick3(data-thumb=productImage? productImage['abs_url'] : 'images/product-detail-01.jpg')
-                .wrap-pic-w
-                  img(src=productImage? productImage['abs_url'] : 'images/product-detail-01.jpg', alt='IMG-PRODUCT')
+              each productImage in product.image_groups[0].images
+                .item-slick3(data-thumb=productImage? productImage['link'] : 'images/product-detail-01.jpg')
+                  .wrap-pic-w
+                    img(src=productImage? productImage['link'] : 'images/product-detail-01.jpg', alt='IMG-PRODUCT')
         .w-size14.p-t-30.respon5
           h4.product-detail-name.m-text16.p-b-13
-            | #{product.name['default']}
+            | #{product.name}
           span.m-text17
-            | $#{product.price? product.price : 'No price'}
+            | $#{product.price? product.price : '0'}
           p.s-text8.p-t-10
-            | #{product.short_description['default'].markup}
+            | #{product.short_description}
           // 
           .p-t-33.p-b-60
             .flex-m.flex-w.p-b-10
@@ -65,7 +62,7 @@ block content
                     | Add to Cart
           .p-b-45
             span.s-text8.m-r-35 BRAND: #{product.brand? product.brand : 'Generic'}
-            span.s-text8 Categories: Mug, Design
+            // span.s-text8 Categories: Mug, Design
           // 
           .wrap-dropdown-content.bo6.p-t-15.p-b-14.active-dropdown-content
             h5.js-toggle-dropdown-content.flex-sb-m.cs-pointer.m-text19.color0-hov.trans-0-4
@@ -74,7 +71,7 @@ block content
               i.up-mark.fs-12.color1.fa.fa-plus(aria-hidden='true')
             .dropdown-content.dis-none.p-t-15.p-b-23
               p.s-text8
-                | #{product.long_description['default'].markup}
+                | #{product.long_description}
           .wrap-dropdown-content.bo7.p-t-15.p-b-14
             h5.js-toggle-dropdown-content.flex-sb-m.cs-pointer.m-text19.color0-hov.trans-0-4
               | Additional information
