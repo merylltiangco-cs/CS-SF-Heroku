@@ -15,6 +15,7 @@ exports.getProducts = async (req, res, next) => {
     };
     request.get(shopRequestUrl + `/product_search?refine=cgid=contentserv-default-category&expand=images,prices,variations&client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`, { headers })
         .then((productsResponse) => {
+            const products = JSON.parse(productsResponse);
             console.log('PRODUCT LIST');
             //res.send(products);
             res.render('products', { products:products.hits });
