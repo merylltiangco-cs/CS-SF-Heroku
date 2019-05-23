@@ -4,7 +4,7 @@ const dataEndpoint = process.env.DATA_ENDPOINT;
 const shopEndpoint = process.env.SHOP_ENDPOINT;
 const apiVersion = process.env.API_VERSION;
 const siteId = process.env.SITE_ID
-const requestUrl = baseUrl + dataEndpoint + apiVersion;
+const dataRequestUrl = baseUrl + dataEndpoint + apiVersion;
 const shopRequestUrl = baseUrl + '/s/' + siteId + shopEndpoint + apiVersion;
 const { catchErrors } = require('../helpers/errorHandlers');
 
