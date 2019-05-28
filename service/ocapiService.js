@@ -26,27 +26,3 @@ exports.getToken = (req, res, next) => {
     next();
   }
 };
-
-exports.getJWToken = (req, res, next) => {
-  if(!req.session.accessToken){
-
-    const loginURL = baseUrl + '/s/SiteGenesis/dw/shop/v19_3/customers/auth?client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-    const headers = {
-      'Content-Type': 'application/json'
-    };
-
-    const json = {
-      'type': 'guest'
-    };
-    console.log(loginURL);
-    request.post(loginURL, { headers, json })
-        .then((tokenResponse) => {
-            const { access_token } = tokenResponse;
-            req.session.accessToken = access_token;
-            console.log(`1. ACCESS TOKEN: ${req.session.accessToken}`)
-            next();
-        });
-  }else{
-    next();
-  }
-};

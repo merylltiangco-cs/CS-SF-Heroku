@@ -32,7 +32,7 @@ exports.getProduct = async (req, res, next) => {
             'Content-Type': 'application/json' 
         };
         console.log(`GET PRODUCT: ${productId}`);
-        request.get(shopRequestUrl + `/products/${productId}?expand=images,prices,variations&all_images=true&client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`, { headers: requestHeader })
+        request.get(shopRequestUrl + `/products/${productId}?expand=images,prices,variations&client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`, { headers: requestHeader })
             .then((productResponse) => {
                 const product = JSON.parse(productResponse);
                 //res.json(product);
