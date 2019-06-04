@@ -13,12 +13,13 @@ exports.getProducts = async (req, res, next) => {
         'Authorization': 'Bearer ' + req.session.accessToken,
         'Content-Type': 'application/json' 
     };
-    request.get(shopRequestUrl + `/product_search?refine=cgid=contentserv-default-category&expand=images,prices,variations&client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`, { headers })
+    request.get(shopRequestUrl + `/product_search?count=200&refine=cgid=contentserv-default-category&expand=images,prices&client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`, { headers })
         .then((productsResponse) => {
             const products = JSON.parse(productsResponse);
+            const filtered = products.hits.filter(product => product.hit_type=="product");
             console.log('PRODUCT LIST');
-            //res.send(products);
-            res.render('products', { products:products.hits });
+            res.send(products);
+            //res.render('products', { products:filtered });
     });
 
 };
@@ -40,3 +41,7 @@ exports.getProduct = async (req, res, next) => {
         });
     }
 };
+
+//function getProductImages = async (req,res,next) => {
+
+//}
