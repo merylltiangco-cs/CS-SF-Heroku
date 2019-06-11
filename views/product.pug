@@ -20,13 +20,21 @@ block content
                   .item-slick3(data-thumb=productImage? productImage['link'] : 'images/product-detail-01.jpg')
                     .wrap-pic-w
                       img(src=productImage? productImage['link'] : 'images/product-detail-01.jpg', alt='IMG-PRODUCT')
+          if product.variants
+            .variant-wrap.flex-sb.flex-w.m-t-20.p-l-60.bo3
+              .p-b-30.p-t-30.w-size28
+                h5.m-text19 Variants:
+              .p-b-30.w-size28
+                  each productVariant in product.variants
+                    a(href=`/product/${productVariant.product_id}` title=productVariant.variation_values.ContentServ-Default-Color)
+                      img.h-size3.p-l-5.p-r-5.p-b-10(src='images/item-cart-01.jpg', alt='IMG-PRODUCT')
         .w-size14.p-t-30.respon5
           h4.product-detail-name.m-text16.p-b-13
             | #{product.name}
           span.m-text17
             | $#{product.price? product.price : '0'}
           p.s-text8.p-t-10
-            | #{product.short_description}
+            | #{product.short_desc}
           .p-t-33.p-b-60
             if product.variation_attributes
               .flex-m.flex-w
@@ -55,12 +63,12 @@ block content
           // 
           .wrap-dropdown-content.bo6.p-t-15.p-b-14.active-dropdown-content
             h5.js-toggle-dropdown-content.flex-sb-m.cs-pointer.m-text19.color0-hov.trans-0-4
-              | Description
+              | desc
               i.down-mark.fs-12.color1.fa.fa-minus.dis-none(aria-hidden='true')
               i.up-mark.fs-12.color1.fa.fa-plus(aria-hidden='true')
             .dropdown-content.dis-none.p-t-15.p-b-23
               p.s-text8
-                | #{product.long_description}
+                | #{product.long_desc}
           .wrap-dropdown-content.bo7.p-t-15.p-b-14
             h5.js-toggle-dropdown-content.flex-sb-m.cs-pointer.m-text19.color0-hov.trans-0-4
               | Additional information

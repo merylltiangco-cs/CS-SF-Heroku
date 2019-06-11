@@ -3692,6 +3692,9 @@ SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE
 .w-size28 {
 	max-width: 570px;
 }
+.w-size28 {
+	width: 100%;
+}
 
 /*[ Height Size ]
 ///////////////////////////////////////////////////////////
@@ -3702,6 +3705,10 @@ SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE
 
 .h-size2 {
 	height: 22px;
+}
+
+.h-size3 {
+	height: 56px;
 }
 
 
