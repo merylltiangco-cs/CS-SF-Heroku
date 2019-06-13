@@ -26,7 +26,6 @@ exports.getProducts = async (req, res, next) => {
 
 exports.getProduct = async (req, res, next) => {
     const productId = req.params.productId;
-    console.log(productId);
     if ( typeof productId !== 'undefined' && productId ){
         const requestHeader = {
             'Authorization': 'Bearer ' + req.session.accessToken,
@@ -38,45 +37,46 @@ exports.getProduct = async (req, res, next) => {
                 const parse = JSON.parse(productResponse);
                 const imageGroup = parse.image_groups.filter(group => group.view_type=="large");
                 const productImages = imageGroup.shift();
-                const variants = getVariants(parse.variants, imageGroup);
+                const productVariants = getVariants(parse.variants, imageGroup);
                 const product = {
                     id: parse.id,
                     name: parse.name,
                     brand: parse.brand,
                     price: parse.price,
-                    short_desc: parse.short_description,
-                    long_desc: parse.long_description,
-                    images: productImages,
-                    variants: variants
+                    short_desc: parse.short_description.replace(/<[^>]+>/g, ''),
+                    long_desc: parse.long_description.replace(/<[^>]+>/g, ''),
+                    images: productImages.images,
+                    variants: productVariants
                 };
-                res.json(product);
-                //res.render('product', { product, title: product.name });
+                //res.json(imageGroup);
+                res.render('product', { product, title: product.name });
         });
     }
 };
 
 getVariants = (variantData, imageGroup) => {
-    const variants = imageGroup.map(({images, variation_attributes}) => {
+    let variants = imageGroup.map(({images, variation_attributes}) => {
         const item = {
             variation_attribute : variation_attributes[0].values[0].value,
             image: {
                 link: images[0].link,
                 title: variation_attributes[0].values[0].value
-            }
+            },
+            options: []
         };
         return item;
     });
     
-    const variantOptions = variantData.map(({product_id, variation_values}) => {
-        return variants.map( variant =>{
-            if(variant.variation_attributes == variation_values['ContentServ-Default-Color']){
-                const option = {
-                    product_id : product_id
-                };
-                variant.options.push(option);
+    variants = variants.map( variant =>{
+        variantData.map(({product_id, variation_values}) => {
+            if(variation_values){
+                if(variant.variation_attribute === variation_values[Object.keys(variation_values)[0]]){
+                    const option = {product_id};
+                    variant.options.push(option);
+                }
             }
         });
+        return variant;
     });
-    
-    return variantOptions;
+    return variants;
 };

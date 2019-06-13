@@ -12,12 +12,12 @@ block content
     .container.bgwhite.p-t-35.p-b-80
       .flex-w.flex-sb
         .w-size13.p-t-30.respon5
-          if product.image_groups
+          if product.images
             .wrap-slick3.flex-sb.flex-w
               .wrap-slick3-dots
               .slick3
-                each productImage in product.image_groups[0].images
-                  .item-slick3(data-thumb=productImage? productImage['link'] : 'images/product-detail-01.jpg')
+                each productImage in product.images
+                  .item-slick3(data-thumb=productImage? productImage.link : 'images/product-detail-01.jpg')
                     .wrap-pic-w
                       img(src=productImage? productImage['link'] : 'images/product-detail-01.jpg', alt='IMG-PRODUCT')
           if product.variants
@@ -26,8 +26,8 @@ block content
                 h5.m-text19 Variants:
               .p-b-30.w-size28
                   each productVariant in product.variants
-                    a(href=`/product/${productVariant.product_id}` title=productVariant.variation_values.ContentServ-Default-Color)
-                      img.h-size3.p-l-5.p-r-5.p-b-10(src='images/item-cart-01.jpg', alt='IMG-PRODUCT')
+                    a(href=productVariant.options[0]? `/product/${productVariant.options[0].product_id}` : '#', title=productVariant.variation_attribute)
+                      img.h-size3.p-l-5.p-r-5.p-b-10(src=productVariant.image? productVariant.image.link : 'images/item-cart-01.jpg', alt='IMG-PRODUCT')
         .w-size14.p-t-30.respon5
           h4.product-detail-name.m-text16.p-b-13
             | #{product.name}
@@ -63,7 +63,7 @@ block content
           // 
           .wrap-dropdown-content.bo6.p-t-15.p-b-14.active-dropdown-content
             h5.js-toggle-dropdown-content.flex-sb-m.cs-pointer.m-text19.color0-hov.trans-0-4
-              | desc
+              | Description
               i.down-mark.fs-12.color1.fa.fa-minus.dis-none(aria-hidden='true')
               i.up-mark.fs-12.color1.fa.fa-plus(aria-hidden='true')
             .dropdown-content.dis-none.p-t-15.p-b-23
