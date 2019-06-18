@@ -32,15 +32,16 @@ exports.getProduct = async (req, res, next) => {
             'Content-Type': 'application/json' 
         };
         console.log(`GET PRODUCT: ${productId}`);
-        request.get(shopRequestUrl + `/products/${productId}?expand=images,prices,variations&all_images=true&client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`, { headers: requestHeader })
+        request.get(shopRequestUrl + `/products/${productId}?expand=images,prices,variations,options&all_images=true&client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`, { headers: requestHeader })
             .then((productResponse) => {
                 const parse = JSON.parse(productResponse);
                 const imageGroup = parse.image_groups.filter(group => group.view_type=="large");
                 const productImages = imageGroup.shift();
-                const productVariants = getVariants(parse.variants, imageGroup);
+                const productVariants = getVariants(parse.variants, imageGroup, req.session.accessToken);
                 const product = {
                     id: parse.id,
                     name: parse.name,
+                    master: parse.master['_type']==='master' ? true : false,
                     brand: parse.brand,
                     price: parse.price,
                     short_desc: parse.short_description.replace(/<[^>]+>/g, ''),
@@ -48,13 +49,13 @@ exports.getProduct = async (req, res, next) => {
                     images: productImages.images,
                     variants: productVariants
                 };
-                //res.json(imageGroup);
-                res.render('product', { product, title: product.name });
+                res.json(product);
+                //res.render('product', { product, title: product.name });
         });
     }
 };
 
-getVariants = (variantData, imageGroup) => {
+getVariants = (variantData, imageGroup, token) => {
     let variants = imageGroup.map(({images, variation_attributes}) => {
         const item = {
             variation_attribute : variation_attributes[0].values[0].value,
@@ -69,9 +70,14 @@ getVariants = (variantData, imageGroup) => {
     
     variants = variants.map( variant =>{
         variantData.map(({product_id, variation_values}) => {
+            const options = getProductOptions(product_id, token);
             if(variation_values){
                 if(variant.variation_attribute === variation_values[Object.keys(variation_values)[0]]){
-                    const option = {product_id};
+                    const option = {
+                        product_id,
+                        size: options.size,
+                        material: options.material
+                    };
                     variant.options.push(option);
                 }
             }
@@ -79,4 +85,27 @@ getVariants = (variantData, imageGroup) => {
         return variant;
     });
     return variants;
+};
+
+getProductOptions = (productId, token) =>{
+    try{
+        const requestHeader = {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json' 
+        };
+        console.log(`GET Variant: ${productId}`);
+        const option = request.get(shopRequestUrl + `/products/${productId}?client_id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`, { headers: requestHeader })
+            .then((productResponse) => {
+                const parse = JSON.parse(productResponse);
+                const attrib =  {
+                    size: parse.c_size,
+                    material: parse.c_material
+                };
+                return attrib;
+            });
+        console.log(option);
+        return option;
+    }catch(error){
+        console.log(error);
+    }
 };

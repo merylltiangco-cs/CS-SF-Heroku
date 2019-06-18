@@ -23,7 +23,7 @@ block content
           if product.variants
             .variant-wrap.flex-sb.flex-w.m-t-20.p-l-60.bo3
               .p-b-30.p-t-30.w-size28
-                h5.m-text19 Variants:
+                h5.m-text19 Select Variant:
               .p-b-30.w-size28
                   each productVariant in product.variants
                     a(href=productVariant.options[0]? `/product/${productVariant.options[0].product_id}` : '#', title=productVariant.variation_attribute)
